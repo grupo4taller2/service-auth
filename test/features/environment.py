@@ -1,6 +1,6 @@
 from src.main import app
 from behave import fixture, use_fixture
-import os
+# import os
 from fastapi.testclient import TestClient
 
 
@@ -11,16 +11,18 @@ def app_client(context, *args, **kwargs):
     yield context.client
 
 # Hooks para hacer Rollbacks y setear variable de entorno de test
-#def before_all(context):
+# def before_all(context):
 #    os.environ["TEST_MODE"] = "1"
+
 
 def before_feature(context, feature):
     use_fixture(app_client, context)
-    context.vars = {} # Rollback de variables entre feature (vars permite compartir variables entre steps)
-    #context.client.post("/reset")
+    # Rollback de variables (permite compartir variables entre steps)
+    context.vars = {}
+    # context.client.post("/reset")
 
-#def after_scenario(context, scenario):
+# def after_scenario(context, scenario):
 #    context.client.post("/reset")
 
-#def after_all(context):
+# def after_all(context):
 #    del os.environ["TEST_MODE"]
