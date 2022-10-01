@@ -1,4 +1,4 @@
-from src.main import app
+from src.entrypoints.http.main import app
 from behave import fixture, use_fixture
 # import os
 from fastapi.testclient import TestClient
