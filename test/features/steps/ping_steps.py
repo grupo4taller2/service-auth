@@ -8,7 +8,7 @@ def step_app_iniciada(context):
 
 @when(u'Realizo un Ping')
 def step_do_ping(context):
-    context.response = context.client.get('/ping')
+    context.response = context.client.get('/ap1/v1/ping')
 
 
 @then(u'Recibo un mensaje "{}"')
