@@ -7,14 +7,13 @@ WORKDIR /opt/app/
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-COPY requirements.txt alembic.ini ./
+COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
 FROM base as production-preinstall
 # RUN echo "copying necesary files for PROD"
 COPY requirements-prod.txt ./
 COPY src ./src
-COPY alembic ./alembic
 RUN  pip install -r requirements-prod.txt
 
 CMD bash -c 'sleep 5 && python3 -m uvicorn src.entrypoints.http.main:app --host=0.0.0.0 --port=$PORT'
