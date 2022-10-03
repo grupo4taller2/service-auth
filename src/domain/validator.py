@@ -1,25 +1,32 @@
 import abc
-from typing import Optional
-from pydantic import BaseModel
 from src.domain.credentials import Credentials
-from src.domain.validation_source import ValidationSource
+from src.domain.password_encoder import PasswordEncoder
 
 
-class AbstractValidator(abc.ABC, BaseModel):
-    validation_source: Optional[ValidationSource]
-
-    class Config:
-        arbitrary_types_allowed = True
-
+class AbstractValidator(abc.ABC):
     @abc.abstractmethod
-    def validate(self, credentials: Credentials):
+    def are_valid(self,
+                  given: Credentials,
+                  ground_truth: Credentials) -> bool:
         raise NotImplementedError
 
 
 class DummyValidator(AbstractValidator):
-    user_id: str
-    password: str
+    def are_valid(self,
+                  given: Credentials,
+                  ground_truth: Credentials) -> bool:
+        return True
 
-    def validate(self, credentials: Credentials):
-        return credentials.uid.text == self.user_id \
-            and credentials.password.text == self.password
+
+class Validator(AbstractValidator):
+    def __init__(self, encoder: PasswordEncoder):
+        self.encoder = encoder
+
+    def are_valid(self,
+                  given: Credentials,
+                  ground_truth: Credentials) -> bool:
+        given_pwd = given.password.text
+        true_hashed_pwd = ground_truth.password.text
+        same_password = self.encoder.verify(given_pwd, true_hashed_pwd)
+        same_id = (given.uid.text == ground_truth.uid.text)
+        return (same_id and same_password)
