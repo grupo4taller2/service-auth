@@ -27,9 +27,10 @@ def step_do_authentication(context, email, password):
             "email": email,
             "password": password
         }
-    )    
+    )
     assert response.status_code == 201
     context.vars['token'] = response['token']
+
 
 @then(u'The authentication is successful')
 def step_impl(context):
