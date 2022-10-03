@@ -13,7 +13,7 @@ Base = declarative_base()
 class TipitoDTO(Base):
     __tablename__ = "tipitos"
 
-    name: Union[str, Column] = Column(String, unique=True, index=True)
+    name: Union[str, Column] = Column(String, primary_key=True, index=True)
     updated_at: Union[DateTime, Column] = Column(
         DateTime(timezone=True), onupdate=func.now()
     )
