@@ -67,5 +67,5 @@ EVENT_HANDLERS = {
 }  # type: Dict[Type[events.Event], List[Callable]]
 
 COMMAND_HANDLERS = {
-    commands.UserLoginCommand: handlers.get_credentials
+    commands.UserLoginCommand: handlers.get_token
 }  # type: Dict[Type[commands.Command], Callable]

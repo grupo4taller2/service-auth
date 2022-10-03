@@ -1,6 +1,7 @@
 from behave import given, when, then
 from src.conf.config import Settings
 import requests
+from jose import jwt
 
 USERS_URI = 'http://service-users:35002/api/v1/users'
 
@@ -33,6 +34,9 @@ def step_do_authentication(context, email, password):
     context.vars['token'] = response.json()['token']
 
 
-@then(u'The authentication is successful')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then The authentication is successful')
+@then(u'The authentication is successful for email "{email}"')
+def step_impl(context, email):
+    # TODO: Decode JWT here with secret? 
+    decoded = jwt.decode(context.vars['token'], Settings().JWT_SECRET)
+    obtained_subject = decoded['sub']
+    assert obtained_subject == email
