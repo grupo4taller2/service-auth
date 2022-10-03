@@ -1,23 +1,23 @@
 from __future__ import annotations
 
 import abc
-from src.adapters.repositories.tipito_base_repository \
-    import TipitoBaseRepository
+from src.adapters.repositories.credentials_base_repository \
+    import CredentialsBaseRepository
 
 
-class AbstractTipitoUnitOfWork(abc.ABC):
-    repository: TipitoBaseRepository
+class AbstractCredentialsUnitOfWork(abc.ABC):
+    repository: CredentialsBaseRepository
 
-    def __enter__(self) -> AbstractTipitoUnitOfWork:
+    def __enter__(self) -> AbstractCredentialsUnitOfWork:
         return self
 
     def __exit__(self, *args):
         self.rollback()
 
     def collect_new_events(self):
-        for tipito in self.repository.seen:
-            while tipito.events:
-                yield tipito.events.pop(0)
+        for credentials in self.repository.seen:
+            while credentials.events:
+                yield credentials.events.pop(0)
 
     @abc.abstractmethod
     def commit(self):

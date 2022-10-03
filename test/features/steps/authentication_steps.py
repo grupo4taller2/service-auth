@@ -22,14 +22,15 @@ def step_create_user(context, email, password):
 @when(u'I try to authenticate with email "{email}" and password "{password}"')
 def step_do_authentication(context, email, password):
     response = context.client.post(
-        Settings().API_V1_STR + '/token',
+        Settings().API_V1_STR + '/auth/token',
         json={
             "email": email,
             "password": password
         }
     )
     assert response.status_code == 201
-    context.vars['token'] = response['token']
+    print(response.json())
+    context.vars['token'] = response.json()['token']
 
 
 @then(u'The authentication is successful')

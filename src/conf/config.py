@@ -7,3 +7,6 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
     CRYPT_CONTEXT_SCHEME: List[str] = ['bcrypt']
     CRYPT_CONTEXT_DEPRECATED: str = 'auto'
+    JWT_SECRET: str
+    JWT_ALGORITHM: str
+    # FIXME: Add JWT expiration date

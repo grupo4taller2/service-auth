@@ -5,5 +5,5 @@ class Event(BaseModel):
     pass
 
 
-class TipitoCreatedEvent(Event):
+class UserLoggedEvent(Event):
     name: str

@@ -5,9 +5,6 @@ class Command(BaseModel):
     pass
 
 
-class TipitoCreateCommand(Command):
-    name: str
-
-
-class TipitoGetCommand(Command):
-    name: str
+class UserLoginCommand(Command):
+    email: str
+    password: str

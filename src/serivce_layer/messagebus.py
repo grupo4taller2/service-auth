@@ -4,7 +4,8 @@ from typing import List, Dict, Callable, Type, Union
 from src.domain import commands, events
 from . import handlers
 
-from src.serivce_layer.abstract_unit_of_work import AbstractTipitoUnitOfWork
+from src.serivce_layer.abstract_unit_of_work \
+    import AbstractCredentialsUnitOfWork
 
 
 logger = logging.getLogger(__name__)
@@ -14,7 +15,7 @@ Message = Union[commands.Command, events.Event]
 
 def handle(
     message: Message,
-    uow: AbstractTipitoUnitOfWork,
+    uow: AbstractCredentialsUnitOfWork,
 ) -> List:
     results = []
     queue = [message]
@@ -33,7 +34,7 @@ def handle(
 def handle_event(
     event: events.Event,
     queue: List[Message],
-    uow: AbstractTipitoUnitOfWork,
+    uow: AbstractCredentialsUnitOfWork,
 ):
     for handler in EVENT_HANDLERS[type(event)]:
         try:
@@ -48,7 +49,7 @@ def handle_event(
 def handle_command(
     command: commands.Command,
     queue: List[Message],
-    uow: AbstractTipitoUnitOfWork,
+    uow: AbstractCredentialsUnitOfWork,
 ):
     logger.debug("handling command %s", command)
     try:
@@ -62,10 +63,9 @@ def handle_command(
 
 
 EVENT_HANDLERS = {
-    events.TipitoCreatedEvent: [handlers.publish_created_event],
+    events.UserLoggedEvent: [handlers.publish_created_event],
 }  # type: Dict[Type[events.Event], List[Callable]]
 
 COMMAND_HANDLERS = {
-    commands.TipitoCreateCommand: handlers.create_tipito,
-    commands.TipitoGetCommand: handlers.get_tipito
+    commands.UserLoginCommand: handlers.get_credentials
 }  # type: Dict[Type[commands.Command], Callable]
