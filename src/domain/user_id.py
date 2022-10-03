@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class Password(BaseModel):
+class UserID(BaseModel):
     text: str
 
     def __hash__(self):
