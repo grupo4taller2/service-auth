@@ -8,6 +8,10 @@ class PasswordEncoder(abc.ABC):
     def encode(self, text: str) -> str:
         raise NotImplementedError
 
+    @abc.abstractmethod
+    def verify(self, given_pwd, true_hashed_pwd) -> bool:
+        raise NotImplementedError
+
 
 class ByCryptPasswordEncoder(PasswordEncoder):
     def __init__(self):
