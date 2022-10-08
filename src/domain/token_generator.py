@@ -20,4 +20,4 @@ class TokenGenerator:
             'sub': username,
             'exp': expiration
         }
-        return jwt.encode(to_encode, self.secret_key, self.algorithm)
+        return jwt.encode(to_encode, self.secret_key, algorithm=self.algorithm)
