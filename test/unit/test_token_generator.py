@@ -1,11 +1,12 @@
-from datetime import timedelta, datetime
+from datetime import datetime
 from src.domain.token_generator import TokenGenerator
+
 
 def test_token_generation():
     key = 'supersecret'
     algorithm = 'HS256'
     generator = TokenGenerator(key, algorithm)
-    
+
     date = datetime(2022, 10, 3, 11, 30)
     access_token = generator.create_access_token('mateo', date)
     print(access_token)

@@ -2,6 +2,7 @@ from jose import jwt
 from src.conf.config import Settings
 from datetime import datetime, timedelta
 
+
 class TokenGenerator:
     def __init__(self,
                  secret_key: str,
@@ -17,6 +18,6 @@ class TokenGenerator:
         expiration = date + timedelta(minutes=self.duration_in_minutes)
         to_encode = {
             'sub': username,
-            'exp': expiration 
+            'exp': expiration
         }
         return jwt.encode(to_encode, self.secret_key, self.algorithm)

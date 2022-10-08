@@ -19,6 +19,7 @@ from src.domain.validator import Validator
 from src.domain.password_encoder import ByCryptPasswordEncoder
 from src.domain.token_generator import TokenGenerator
 
+
 def get_token(cmd: UserLoginCommand,
               uow: AbstractCredentialsUnitOfWork):
     with uow:
@@ -39,7 +40,7 @@ def get_token(cmd: UserLoginCommand,
     date = datetime.utcnow()
 
     return generator.create_access_token(cmd.email, date)
-    
+
 
 def publish_created_event(event: UserLoggedEvent,
                           uow: AbstractCredentialsUnitOfWork):

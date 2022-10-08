@@ -35,7 +35,7 @@ def step_do_authentication(context, email, password):
 
 @then(u'The authentication is successful for email "{email}"')
 def step_impl(context, email):
-    # TODO: Decode JWT here with secret. ¿Model class or plain jose? 
+    # TODO: Decode JWT here with secret. ¿Model class or plain jose?
     decoded = jwt.decode(context.vars['token'], Settings().JWT_SECRET)
     obtained_subject = decoded['sub']
     assert obtained_subject == email
