@@ -24,5 +24,8 @@ jobs:
         run: |
           coverage run -m pytest test
           coverage xml
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }} 
+          JWT_ALGORITHM: ${{ secrets.JWT_ALGORITHM }} 
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v2
