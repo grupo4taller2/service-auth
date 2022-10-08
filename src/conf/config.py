@@ -9,6 +9,6 @@ class Settings(BaseSettings):
     # TODO: Maybe move the following two to env vars?
     CRYPT_CONTEXT_SCHEME: List[str] = ['bcrypt']
     CRYPT_CONTEXT_DEPRECATED: str = 'auto'
-    JWT_SECRET: str = os.environ.get("JWT_ALGORITHM")
+    JWT_SECRET: str = os.environ.get("JWT_SECRET")
     JWT_ALGORITHM: str = os.environ.get("JWT_ALGORITHM")
     # FIXME: Add JWT expiration date
